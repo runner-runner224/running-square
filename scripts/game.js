@@ -19,7 +19,7 @@ class Game {
         // recompute the game state
         this.time += this.clock.getDelta()
 
-        this.translateX += this.speedX * -0.05
+        this.translateX += this.speedX * -0.1
 
         this._updateGrid();
         this._checkCollisions();
