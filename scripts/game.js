@@ -32,7 +32,13 @@ class Game {
             case 'ArrowLeft':
                 newSpeedX = -2.0;
                 break;
+            case 'a':
+                newSpeedX = -2.0;
+                break;
             case 'ArrowRight':
+                newSpeedX = 2.0;
+                break;
+            case 'd':
                 newSpeedX = 2.0;
                 break;
             default:
