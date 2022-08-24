@@ -19,7 +19,7 @@ class Game {
         // recompute the game state
         this.time += this.clock.getDelta()
 
-        this.translateX += this.speedX * -0.05
+        this.translateX += this.speedX * -0.1
 
         this._updateGrid();
         this._checkCollisions();
@@ -32,7 +32,13 @@ class Game {
             case 'ArrowLeft':
                 newSpeedX = -2.0;
                 break;
+            case 'a':
+                newSpeedX = -2.0;
+                break;
             case 'ArrowRight':
+                newSpeedX = 2.0;
+                break;
+            case 'd':
                 newSpeedX = 2.0;
                 break;
             default:
