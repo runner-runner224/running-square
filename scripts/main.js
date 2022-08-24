@@ -4,26 +4,18 @@ window.onload = () => {
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    
     document.body.appendChild(renderer.domElement);
 
-    // create a green cube
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    // add it to the scene hierarchy
-    scene.add(cube);
-
-    // move the camera back so it can see the cube
-    camera.position.z = 5;
+    // create an instance of our Game class
+    // to initialise and manage the game itself
+    const gameInstance = new Game(scene, camera);
 
     function animate() {
         requestAnimationFrame(animate);
-
-        // add rotate animation to the cube (increment
-        // its rotation on the X/Y axis a little every frame)
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-        
+        // directly call the game instance method to
+        // be agnostic of all details
+        gameInstance.update();
         renderer.render(scene, camera);
     }
     animate();
