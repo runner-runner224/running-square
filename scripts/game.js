@@ -2,12 +2,16 @@ class Game {
 
     OBSTACLE_PREFAB =   new THREE.BoxBufferGeometry(1, 1, 1)
     OBSTACLE_MATERIAL = new THREE.MeshBasicMaterial({ color: 0xccdeee })
+    COLLISION_THRESHOLD = 0.2
 
     constructor(scene, camera) {
       // initialize variables
         this.speedZ = 20
         this.speedX = 0
         this.translateX = 0
+
+        this.health = 1
+
       // prepare 3D scene
         this._initializeScene(scene, camera);
       // bind event callbacks
@@ -65,15 +69,30 @@ class Game {
                 const childZPos = child.position.z + this.objectsParent.position.z
                 if (childZPos > 0) {
                     // reset the object
-                    this._setupObstacle(child, this.ship.position.x, -this.objectsParent.position.z)
+                    this._setupObstacle(child, this.ship.position.x, - this.objectsParent.position.z)
                 }
             }
         })
     }
 
     _checkCollisions() {
-        // check obstacles
-        // check bonuses
+        this.objectsParent.traverse((child) => {
+            if (child instanceof THREE.Mesh) {
+                // position in world space
+                const childZPos = child.position.z + this.objectsParent.position.z
+                
+                // threshold distances
+                const thresholdX = this.COLLISION_THRESHOLD + child.scale.x /2
+                const thresholdZ = this.COLLISION_THRESHOLD + child.scale.z /2
+
+                if ( childZPos > - thresholdZ && Math.abs(child.position.x + this.translateX) < thresholdX) {
+                    // collision
+                    this.health -= 1
+                    console.log("health:" , this.health)
+                    this._setupObstacle(child, this.ship.position.x, - this.objectsParent.position.z)
+                }
+            }
+        })
     }
 
     _updateInfoPanel() {
@@ -137,7 +156,7 @@ class Game {
     }
 
     _createGrid(scene) {
-        this.speedZ = 50;
+        this.speedZ = 70;
     
         let divisions = 30;
         let gridLimit = 200;
@@ -241,7 +260,7 @@ class Game {
     _setupObstacle(obj, refXPos = 0, refZPos = 0) {
         // random scale
         obj.scale.set(
-            this._randomFloat(0.5, 2),
+            this._randomFloat(0.5, 10),
             this._randomFloat(0.5, 2),
             this._randomFloat(0.5, 2),
         )
