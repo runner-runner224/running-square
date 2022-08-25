@@ -6,7 +6,7 @@ class Game {
 
     constructor(scene, camera) {
       // initialize variables
-        
+        this.running = false;
         this.speedZ = 20
         this.speedX = 0
         this.translateX = 0
@@ -18,12 +18,18 @@ class Game {
       // prepare 3D scene
         this._initializeScene(scene, camera);
       // bind event callbacks
+      document.getElementById("start-button").onclick =() =>{
+        this.running = true;
+        document.getElementById('start-page').style.display = 'none';
+      }
         document.addEventListener('keydown', this._keydown.bind(this));
         document.addEventListener('keyup', this._keyup.bind(this));
     }
     
     update() {
         // recompute the game state
+        if(!this.running)
+      return;
         this.time += this.clock.getDelta()
 
         this.translateX += this.speedX * -0.1
