@@ -13,6 +13,8 @@ class Game {
 
         this.health = 1
 
+        this.distance = document.getElementById('distance-number')
+        this.distance.innerText = 0
       // prepare 3D scene
         this._initializeScene(scene, camera);
       // bind event callbacks
@@ -97,9 +99,7 @@ class Game {
     }
 
     _updateInfoPanel() {
-        // update DOM elements to show the
-        // current state of the game
-        // (traveled distance, score, lives...)
+        this.distance.innerText = this.objectsParent.position.z.toFixed(0)
     }
 
     _gameOver() {
