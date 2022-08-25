@@ -6,6 +6,7 @@ class Game {
 
     constructor(scene, camera) {
       // initialize variables
+        
         this.speedZ = 20
         this.speedX = 0
         this.translateX = 0
