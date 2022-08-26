@@ -1,4 +1,5 @@
 
+
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 @import "/assets/grid.jpeg";
 
@@ -30,8 +31,6 @@ body{
 
     color:white;
     z-index:1000;
-
-
 }
 #start-column{
     text-align:center;
@@ -68,6 +67,4 @@ body{
     position:fixed;
     color:white;
     
-    
-    
-}
+   }
