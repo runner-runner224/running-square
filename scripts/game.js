@@ -269,7 +269,7 @@ class Game {
             this.objectsParent = new THREE.Group()
             scene.add(this.objectsParent)
     
-            for (let i = 0; i < 10; i++){
+            for (let i = 0; i < 15; i++){
                 this._obstacle()
             }
     
@@ -278,7 +278,6 @@ class Game {
         }else {
             this.objectsParent.traverse((item) => {
                 if(item instanceof THREE.Mesh) {
-                    if(item.userData.type === 'obstacle')
                     this._setupObstacle(item)
                 } else {
                     item.position.set(0, 0, 0)
