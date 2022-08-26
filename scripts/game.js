@@ -5,23 +5,26 @@ class Game {
     COLLISION_THRESHOLD = 0.2
 
     constructor(scene, camera) {
-      // initialize variables
-        this.running = false;
-        this.speedZ = 20
-        this.speedX = 0
-        this.translateX = 0
-
-        this.health = 1
-
         this.distance = document.getElementById('distance-number')
-        this.distance.innerText = 0
-      // prepare 3D scene
-        this._initializeScene(scene, camera);
+
+        this.gameOverPage = document.getElementById('game-over-page')
+        this.gameOverDistance = document.getElementById('total-distance')
+
       // bind event callbacks
-      document.getElementById("start-button").onclick =() =>{
+        document.getElementById("start-button").onclick =() =>{
         this.running = true;
         document.getElementById('start-page').style.display = 'none';
-      }
+        }
+
+        document.getElementById("restart-button").onclick =() =>{
+        this.running = true;
+        this.gameOverPage.style.display = 'none'
+        }
+
+        this.scene = scene
+        this.camera = camera
+        this._reset(false)
+
         document.addEventListener('keydown', this._keydown.bind(this));
         document.addEventListener('keyup', this._keyup.bind(this));
     }
@@ -29,7 +32,7 @@ class Game {
     update() {
         // recompute the game state
         if(!this.running)
-      return;
+        return;
         this.time += this.clock.getDelta()
 
         this.translateX += this.speedX * -0.1
@@ -99,6 +102,9 @@ class Game {
                     this.health -= 1
                     console.log("health:" , this.health)
                     this._setupObstacle(child, this.ship.position.x, - this.objectsParent.position.z)
+                    if (this.health < 1) 
+                        this._gameOver()
+                    
                 }
             }
         })
@@ -109,8 +115,28 @@ class Game {
     }
 
     _gameOver() {
-        // show "end state" UI
-        // reset instance variables for a new game
+        this.running = false
+        this.gameOverDistance.innerText = this.objectsParent.position.z.toFixed(0)
+        this.gameOverPage.style.display = 'grid'
+        this._reset(true)
+    }
+
+    _reset(restart) {
+        // initialize variables
+        this.running = false;
+        this.speedZ = 70
+        this.speedX = 0
+        this.translateX = 0
+
+        this.health = 1
+
+        this.distance.innerText = 0
+
+        this.time =0
+        this.clock = new THREE.Clock()
+
+        // prepare 3D scene
+        this._initializeScene(this.scene, this.camera, restart);
     }
     
     _createShip(scene) {
@@ -232,25 +258,33 @@ class Game {
         });
 
         scene.add(this.grid);
-
-        this.time =0
-        this.clock = new THREE.Clock()
     }
 
 
-    _initializeScene(scene, camera) {
-        this._createShip(scene);
-        this._createGrid(scene);
-
-        this.objectsParent = new THREE.Group()
-        scene.add(this.objectsParent)
-
-        for (let i = 0; i < 10; i++){
-            this._obstacle()
+    _initializeScene(scene, camera, restart) {
+        if (!restart){
+            this._createShip(scene);
+            this._createGrid(scene);
+    
+            this.objectsParent = new THREE.Group()
+            scene.add(this.objectsParent)
+    
+            for (let i = 0; i < 10; i++){
+                this._obstacle()
+            }
+    
+            camera.rotateX(-20 * Math.PI / 180);
+            camera.position.set(0, 1.5, 2);
+        }else {
+            this.objectsParent.traverse((item) => {
+                if(item instanceof THREE.Mesh) {
+                    if(item.userData.type === 'obstacle')
+                    this._setupObstacle(item)
+                } else {
+                    item.position.set(0, 0, 0)
+                }
+            })
         }
-
-        camera.rotateX(-20 * Math.PI / 180);
-        camera.position.set(0, 1.5, 2);
     }
 
     _obstacle() {
