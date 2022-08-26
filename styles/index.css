@@ -15,7 +15,7 @@ body{
     overscroll-behavior: none;
 }
 
-#start-page{
+#start-page,#game-over-page {
     position: absolute;
     top: 0;
     left: 0;
@@ -27,18 +27,18 @@ body{
     justify-content: center;
     transition: opacity 300ms ease;
     transition: background-color 1000ms ease;
-
+    font-family: var(--font-title);
     color:white;
     z-index:1000;
 
 
 }
-#start-column{
+#start-column, #game-over-column{
     text-align:center;
 
 }
 
-#intro-title{
+#intro-title, #over-title{
     font-size:5em;
     margin-bottom:3em;
     font-weight:500;
@@ -46,7 +46,7 @@ body{
     font-family: var(--font-title)
 }
 
-#start-button{
+#start-button, #restart-button{
     
     background: none;
   border-radius: 20px;
@@ -70,4 +70,16 @@ body{
     
     
     
+}
+#game-over-page {
+
+    display:none;
+    
+}
+#total-distance-row{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size:2rem;
+    margin-bottom: 16rem;
 }
