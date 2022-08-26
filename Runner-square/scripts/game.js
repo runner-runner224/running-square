@@ -102,23 +102,19 @@ _createShip(scene) {
     function (ship) {
         scene.add(ship.scene);
         
+    
 
-		ship.animations; // Array<THREE.AnimationClip>
-		ship.scene; // THREE.Group
-		ship.scenes; // Array<THREE.Group>
-		ship.cameras; // Array<THREE.Camera>
-		ship.asset; // Objship
+    
 	
-    },
-      // called while loading is progressing
-    )
+    })
+    this.ship = new THREE.Group();
 }
 
   _createGrid(scene) {
     this.speedZ = 50;
 
     let divisions = 30;
-    let gridLimit = 200;
+    let gridLimit = 100;
     this.grid = new THREE.GridHelper(
       gridLimit * 2,
       divisions,
