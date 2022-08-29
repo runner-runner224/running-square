@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
+
 class Game {
 
     OBSTACLE_PREFAB =   new THREE.BoxBufferGeometry(1, 1, 1)
@@ -147,7 +148,7 @@ class Game {
         // called when the resource is loaded
         loader.load(
           // resource URL
-        "Untitled.gltf",
+        "../assets/untitled.gltf",
           // called when the resource is loaded
         function (ship) {
             scene.add(ship.scene);
