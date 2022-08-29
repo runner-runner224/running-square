@@ -148,7 +148,7 @@ class Game {
         // called when the resource is loaded
         loader.load(
           // resource URL
-        "../assets/untitled.gltf",
+        "../assets/Player.gltf",
           // called when the resource is loaded
         function (ship) {
             scene.add(ship.scene);
