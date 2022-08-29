@@ -1,3 +1,8 @@
+import '../styles/index.css'
+import * as THREE from 'three'
+import Game from './game.js'
+
+
 window.onload = () => {
     setupAudio();
     const scene = new THREE.Scene();
