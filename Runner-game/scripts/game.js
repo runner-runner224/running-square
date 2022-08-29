@@ -1,3 +1,6 @@
+import * as THREE from 'three'
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+
 class Game {
 
     OBSTACLE_PREFAB =   new THREE.BoxBufferGeometry(1, 1, 1)
@@ -140,52 +143,22 @@ class Game {
     }
     
     _createShip(scene) {
-        const shipBody = new THREE.Mesh(
-            new THREE.TetrahedronBufferGeometry(0.4),
-            new THREE.MeshBasicMaterial({ color: 0xbbccdd }),
-        );
-
-        shipBody.rotateX(45 * Math.PI / 180);
-        shipBody.rotateY(45 * Math.PI / 180);
-
+        const loader = new GLTFLoader();
+        // called when the resource is loaded
+        loader.load(
+          // resource URL
+        "Untitled.gltf",
+          // called when the resource is loaded
+        function (ship) {
+            scene.add(ship.scene);
+            
+            
+    
+        
+        
+        })
         this.ship = new THREE.Group();
-        this.ship.add(shipBody);
-
-        scene.add(this.ship)
-
-        const reactorSocketGeometry = new THREE.CylinderBufferGeometry(0.08, 0.08, 0.1, 16);
-        const reactorSocketMaterial = new THREE.MeshBasicMaterial({ color: 0x99aacc });
-        const reactorSocket1 = new THREE.Mesh(reactorSocketGeometry, reactorSocketMaterial);
-        const reactorSocket2 = new THREE.Mesh(reactorSocketGeometry, reactorSocketMaterial);
-        const reactorSocket3 = new THREE.Mesh(reactorSocketGeometry, reactorSocketMaterial);
-
-        this.ship.add(reactorSocket1);
-        this.ship.add(reactorSocket2);
-        this.ship.add(reactorSocket3);
-
-        reactorSocket1.rotateX(90 * Math.PI / 180);
-        reactorSocket1.position.set(-0.15, 0, 0.1);
-        reactorSocket2.rotateX(90 * Math.PI / 180);
-        reactorSocket2.position.set(0.15, 0, 0.1);
-        reactorSocket3.rotateX(90 * Math.PI / 180);
-        reactorSocket3.position.set(0, -0.15, 0.1);
-
-        const reactorLightGeometry = new THREE.CylinderBufferGeometry(0.055, 0.055, 0.1, 16);
-        const reactorLightMaterial = new THREE.MeshBasicMaterial({ color: 0xaadeff })
-
-        const reactorLight1 = new THREE.Mesh(reactorLightGeometry, reactorLightMaterial);
-        const reactorLight2 = new THREE.Mesh(reactorLightGeometry, reactorLightMaterial);
-        const reactorLight3 = new THREE.Mesh(reactorLightGeometry, reactorLightMaterial);
-
-        this.ship.add(reactorLight1);
-        this.ship.add(reactorLight2);
-        this.ship.add(reactorLight3);
-        reactorLight1.rotateX(90 * Math.PI / 180);
-        reactorLight1.position.set(-0.15, 0, 0.11);
-        reactorLight2.rotateX(90 * Math.PI / 180);
-        reactorLight2.position.set(0.15, 0, 0.11);
-        reactorLight3.rotateX(90 * Math.PI / 180);
-        reactorLight3.position.set(0, -0.15, 0.11);
+        
     }
 
     _createGrid(scene) {
@@ -193,7 +166,11 @@ class Game {
     
         let divisions = 30;
         let gridLimit = 200;
-        this.grid = new THREE.GridHelper(gridLimit * 2, divisions, 0xccddee, 0xccddee);
+        this.grid = new THREE.GridHelper(
+            gridLimit * 2,
+            divisions,
+            0x000000,
+            0x000000);
 
         const moveableX = [];
         const moveableZ = [];
@@ -228,10 +205,10 @@ class Game {
                 attribute float moveableX;
                 attribute float moveableZ;
                 
-                varying vec3 vColor;
+                
             
                 void main() {
-                vColor = color;
+                
                 float limLen = gridLimits.y - gridLimits.x;
                 vec3 pos = position;
                 if (floor(moveableX + 0.5) > 0.5) { // if a point has "moveableX" attribute = 1 
@@ -246,15 +223,8 @@ class Game {
                 }
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
                 }
-            `,
-            fragmentShader: `
-                varying vec3 vColor;
+            // `,
             
-                void main() {
-                gl_FragColor = vec4(vColor, 1.); // r, g, b channels + alpha (transparency)
-                }
-            `,
-            vertexColors: THREE.VertexColors
         });
 
         scene.add(this.grid);
@@ -317,3 +287,5 @@ class Game {
     }
 
 }
+
+export default Game
