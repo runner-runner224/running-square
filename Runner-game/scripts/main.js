@@ -1,10 +1,10 @@
 import '../styles/index.css'
 import * as THREE from 'three'
 import Game from './game.js'
-
+// import setupAudio from './audio-manager'
 
 window.onload = () => {
-    setupAudio();
+    // setupAudio();
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
