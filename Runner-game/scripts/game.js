@@ -14,6 +14,8 @@ class Game {
         this.gameOverPage = document.getElementById('game-over-page')
         this.gameOverDistance = document.getElementById('total-distance')
 
+
+        
       // bind event callbacks
         document.getElementById("start-button").onclick =() =>{
         this.running = true;
@@ -37,9 +39,15 @@ class Game {
         // recompute the game state
         if(!this.running)
         return;
+
+        const timeDelta = this.clock.getDelta();
+        this.time += timeDelta;
+
+        if(this.rotationLerp !== null)
+            this.rotationLerp.update(timeDelta)
         this.time += this.clock.getDelta()
 
-        this.translateX += this.speedX * -0.1
+        this.translateX += this.speedX * -0.05
 
         this._updateGrid();
         this._checkCollisions();
@@ -64,14 +72,23 @@ class Game {
             default:
                 return;
         }
-
+        if(this.speedX !== newSpeedX){
+            this.speedX = newSpeedX;
+            this._rotateShip(-this.speedX * 20 * Math.PI / 180, 0.8);
+        }
         this.speedX = newSpeedX
     }
     
     _keyup() {
         this.speedX = 0
+        this._rotateShip(0,0.5);
     }
-
+    _rotateShip(targetRotation, delay) {
+        const $this = this;
+        this.rotationLerp = new Lerp(this.ship.rotation.z, targetRotation, delay)
+          .onUpdate((value) => { $this.ship.rotation.z = value })
+          .onFinish(() => { $this.rotationLerp = null });
+      }
     _updateGrid() {
         this.grid.material.uniforms.time.value = this.time
         this.objectsParent.position.z = this.speedZ * this.time
@@ -132,6 +149,10 @@ class Game {
         this.speedX = 0
         this.translateX = 0
 
+
+        this.rotationLerp = null;
+
+
         this.health = 1
 
         this.distance.innerText = 0
@@ -142,7 +163,6 @@ class Game {
         // prepare 3D scene
         this._initializeScene(this.scene, this.camera, restart);
     }
-    
     _createShip(scene) {
         const loader = new GLTFLoader();
         // called when the resource is loaded
