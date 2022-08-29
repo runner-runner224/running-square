@@ -168,7 +168,7 @@ class Game {
         // called when the resource is loaded
         loader.load(
           // resource URL
-        "../assets/untitled.gltf",
+        "../assets/Player.gltf",
           // called when the resource is loaded
         function (ship) {
             scene.add(ship.scene);
@@ -291,9 +291,9 @@ class Game {
     _setupObstacle(obj, refXPos = 0, refZPos = 0) {
         // random scale
         obj.scale.set(
-            this._randomFloat(10, 10),
-            this._randomFloat(30, 5),
-            this._randomFloat(10, 10),
+            this._randomFloat(1, 10),
+            this._randomFloat(3, 5),
+            this._randomFloat(1, 10),
         )
         // random position
         obj.position.set(
