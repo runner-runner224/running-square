@@ -300,9 +300,9 @@ class Game {
     _setupObstacle(obj, refXPos = 0, refZPos = 0) {
         // random scale
         obj.scale.set(
-            this._randomFloat(0.5, 10),
-            this._randomFloat(0.5, 2),
-            this._randomFloat(0.5, 2),
+            this._randomFloat(10, 10),
+            this._randomFloat(30, 5),
+            this._randomFloat(10, 10),
         )
         // random position
         obj.position.set(
