@@ -5,7 +5,7 @@ import {defineConfig} from "vite"
 
 export default defineConfig({
 
-    base: "/RUNNING-SQUARE/",
+    base: "/",
     build:{
         chunkSizeWarningLimit:1600,
     }
