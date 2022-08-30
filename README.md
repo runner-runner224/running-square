@@ -7,7 +7,7 @@ Developing a 3D runner game powered with Three.js with models built in blender. 
 Mauricio Alvarenga,
 Matthew Studzinski,
 Yu Xiong
-# Your tech stack (frontend, backend, database)
+# Tech stack
 HTML,
 CSS,
 JAVASCRIPT,
