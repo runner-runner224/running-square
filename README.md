@@ -1,6 +1,6 @@
-# Retro Runner
+# RETRO DASH
 
-Retro Runner Game
+RETRO DASH Game
 Developing a 3D runner game powered with Three.js with models built in blender. The goal of the game is to avoid the obstacles for as long as possible, the player will have a running distance counter on the top of their screen. the player model can move side to side to avoid incoming objects. 
 
 # Members
