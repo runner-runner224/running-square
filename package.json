@@ -9,10 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^3.0.7"
+    "vite": "^3.0.9"
   },
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "netlify": "^12.0.1",
     "three": "^0.143.0"
   }
 }
