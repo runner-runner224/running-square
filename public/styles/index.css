@@ -38,6 +38,7 @@ body{
 }
 
 #intro-title, #over-title{
+    
     font-size:5em;
     margin-bottom:3em;
     font-weight:500;
@@ -57,7 +58,16 @@ body{
   cursor:hover;
 }
 
-
+@media screen and (max-width:800px){
+    #intro-title, #over-title{
+    
+        font-size:3em;
+        margin-bottom:3em;
+        font-weight:500;
+        text-shadow:2px 2px 2px black;
+        font-family: var(--font-title)
+    }
+}
 
 
 #distance{
@@ -82,3 +92,4 @@ body{
     font-size:2rem;
     margin-bottom: 16rem;
 }
+
