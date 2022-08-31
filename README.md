@@ -40,7 +40,7 @@ Once the player crashes there will be a game over screen that shows your distanc
 <img width="1288" alt="Screen Shot 2022-08-29 at 6 08 48 PM" src="https://user-images.githubusercontent.com/88520969/187347253-e2faa5e9-8e99-4c39-85b2-e429a01156fc.png">
 
 # Live Site 
-
+https://630ea47c21e854183bff89ce--strong-dragon-234adc.netlify.app/
 # Unsolved Problems and future plans
 
 Create a backend to log users scores and display high scores.
